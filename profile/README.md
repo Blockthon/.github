@@ -1,20 +1,11 @@
 # Blockthon
 Blockthon Python Package for Generate and Converting Wallet Private Key and Mnemonic for Address Bitcoin
 
-
-[Home](https://mmdrza.gitbook.io/blockthon/) | [Install](https://mmdrza.gitbook.io/blockthon/blockthon/installing) | [Donate / Sponsered](https://mmdrza.gitbook.io/blockthon/blockthon-donate-support) | [Private Key](https://mmdrza.gitbook.io/blockthon/private-key-hex) | [Mnemonic](https://mmdrza.gitbook.io/blockthon/mnemonic) | [Public Key](https://mmdrza.gitbook.io/blockthon/public-key) | [Bytes (seed)](https://mmdrza.gitbook.io/blockthon/bytes-seed) | [Binary](https://mmdrza.gitbook.io/blockthon/binary-to-private-key-hex) | [Compress & Uncompress Address](https://mmdrza.gitbook.io/blockthon/address)
-
-#### Install Blockthon On Windows
 ```bash
 # on windows
 pip install Blockthon
-```
 
-#### Install Blockthon On Linux / Debian:
-```bash
-sudo apt-get update&&sudo apt-get upgrade -y
-sudo apt-get install autoconf automake -y
-sudo apt-get install gcc libffi-dev -y
+# on Linux
 pip3 install Blockthon
 ```
 
@@ -30,315 +21,162 @@ make
 
 generated private key hex random with Blockthon in Python very fast for any os:
 
+### Generated Private Key:
 ```python
-import Blockthon
-PrivateKey = Blockthon.PrivateKey()
-``` 
+from Blockthon.Wallet import PrivateKey
 
----
+privatekey = PrivateKey()
+```
+### Convert Private Key (HEX) To Compress & Un Compress Address:
 
-## Blockthon / `Python` Example:
+for generated compressed and uncompress address bitcoin wallet use this example:
+```python
 
----
+from Blockthon.Wallet import PrivateKey, PrivateKey_To_CompressAddr, PrivateKey_To_UnCompressAddr
 
-Generated Compressed Address and Un Compressed Address Wallet Bitcoin From Private Key Hex : example to [ `AddrFromHex_CheckBalance.py` ](https://github.com/Blockthon/Blockthon/blob/main/example/AddrFromHex_CheckBalance.py)
+# Generate Private Key 
+privatekey = PrivateKey()
+# Convert Private key Hex To Compress Address Bitcoin
+compressAddress = PrivateKey_To_CompressAddr(privatekey)
+uncompressAddress = PrivateKey_To_UnCompressAddr(privatekey)
+```
+another example with new Format for all Bitcoin address Type in `Blockthon`:
 
----
-### Generated `Compress` and `Un Compress` Bitcoin Wallet Address :
+- Data Entered `privatekey [hex]` with `string` type
+- Data Entered `format` with `string` type: `compress` , `uncompress`, `P2PKH`, `P2SH`, `P2WSH`, `P2WPKH`, `P2WPKHinP2SH`, `P2WSHinP2SH`.
+
+Here Convert example for privatekey hex with return P2PKH address:
+
+`PrivateKey_To_Address(privatekey, Type='P2PKH')`
+
+now , another example for convert private key hex to compress address and uncompress address:
 
 ```python
-import Blockthon as block
+from Blockthon.Wallet import PrivateKey
+from Blockthon.Bitcoin import PrivateKey_To_Address
 
-PrivateKey_ = block.PrivateKey()
-# Un Compress Bitcoin Wallet Address [Default : compress=false]
-unCompress_Address = block.Addr_From_PrivateKey(PrivateKey_)
-# Compress Bitcoin Wallet Address [Default : compress=True]
-Compress_Address = block.Addr_From_PrivateKey(PrivateKey_, True)
+privatekey = PrivateKey()
+compressAddress = PrivateKey_To_Address(privatekey, Type='compress')
+uncompressAddress = PrivateKey_To_Address(privatekey, Type='uncompress')
+```
+
+### Check Value Balance From Address Bitcoin Wallet:
+for checking balance per address bitcoin wallet with any type format can use example :
+
+```python
+from Blockthon.Bitcoin import Balance_BTC
+
+address = "bc1qu8dccq3yetd93m4nge0yay53lwgwvxngj8a80s"
+balance = Balance_BTC(address)
+# return value balance to string can / 100000000
+```
+### Generate and Convert Private Key HEX To Ethereum Address:
+
+example: generate privatekey hex and convert to ethereum address:
+```python
+from Blockthon.Wallet import PrivateKey_To_ETH
+import os
+
+privatekey = os.urandom(32).hex()
+addressEthereum = PrivateKey_To_ETH(privatekey)
+```
+check value balance Ethereum from address:
+```python
+from Blockhton.Ethereum import Balance_ETH
+
+address = "0x3628c7978C69278fA19A88a5B16718F47f5BEfe8"
+balance = Balance_ETH(address)
+```
+
+=======
+# Blockthon
+Blockthon Python Package for Generate and Converting Wallet Private Key and Mnemonic for Address Bitcoin
+
+```bash
+# on windows
+pip install Blockthon
+
+# on Linux
+pip3 install Blockthon
+```
+
+or for download manual:
+```bash
+git clone https://github.com/Blockthon/Blockthon
+cd Blockthon
+make
 ```
 
 
-### Generated `P2PKH` , `P2SH` , `P2WPKH` , `P2WSH` , `P2WSH in P2SH` and `P2WPKH in P2SH` Bitcoin Address Type From Private Key (hex) :
+### Generate Private Key (Hex) [Random]:
+
+generated private key hex random with Blockthon in Python very fast for any os:
+
+### Generated Private Key:
+```python
+from Blockthon.Wallet import PrivateKey
+
+privatekey = PrivateKey()
+```
+### Convert Private Key (HEX) To Compress & Un Compress Address:
+
+for generated compressed and uncompress address bitcoin wallet use this example:
+```python
+
+from Blockthon.Wallet import PrivateKey, PrivateKey_To_CompressAddr, PrivateKey_To_UnCompressAddr
+
+# Generate Private Key 
+privatekey = PrivateKey()
+# Convert Private key Hex To Compress Address Bitcoin
+compressAddress = PrivateKey_To_CompressAddr(privatekey)
+uncompressAddress = PrivateKey_To_UnCompressAddr(privatekey)
+```
+another example with new Format for all Bitcoin address Type in `Blockthon`:
+
+- Data Entered `privatekey [hex]` with `string` type
+- Data Entered `format` with `string` type: `compress` , `uncompress`, `P2PKH`, `P2SH`, `P2WSH`, `P2WPKH`, `P2WPKHinP2SH`, `P2WSHinP2SH`.
+
+Here Convert example for privatekey hex with return P2PKH address:
+
+`PrivateKey_To_Address(privatekey, Type='P2PKH')`
+
+now , another example for convert private key hex to compress address and uncompress address:
 
 ```python
-import Blockthon as block
+from Blockthon.Wallet import PrivateKey
+from Blockthon.Bitcoin import PrivateKey_To_Address
 
-# Generated Random Private Key (HEX)
-privatekey = block.PrivateKey()
-# Generated P2PKH Address Bitcoin Address :
-p2pkh = block.P2PKH_From_PrivateKey(privatekey)
-# Generated P2SH Address Bitcoin Address :
-p2sh = block.P2SH_From_PrivateKey(privatekey)
-# Generated P2PKH Address Bitcoin Address :
-p2wpkh = block.P2WPKH_From_PrivateKey(privatekey)
-# Generated P2WSH Address Bitcoin Address :
-p2wsh = block.P2WSH_From_PrivateKey(privatekey)
-# Generated P2WPKH in P2SH Address Bitcoin Address :
-p2wpkh_p2sh = block.P2WPKH_in_P2SH_From_PrivateKey(privatekey)
-# Generated P2WSH in P2SH Address Bitcoin Address :
-p2wsh_in_p2sh = block.P2WSH_in_P2SH_From_PrivateKey(privatekey)
-```
-### Check Balance (Value) Bitcoin Wallet Address:
-
-#### for check balance per address wallet just use `Balance()` for bitcoin address's
-```python
-import Blockthon as block
-
-bitcoinAddress = "179nEQKfizafpVkefed4XVSpdUpXzRSSvm"
-balance_string = block.Balance(bitcoinAddress)
-
+privatekey = PrivateKey()
+compressAddress = PrivateKey_To_Address(privatekey, Type='compress')
+uncompressAddress = PrivateKey_To_Address(privatekey, Type='uncompress')
 ```
 
-### Generated Ethereum Address From Private Key (HEX):
-
-generated ethereum address wallet from private key (hex) , in this example first generated private key random , after that generated address from private key with `block.ETH_From_PrivateKey(privatekey)`, first needed import `import Blockthon as block` .
+### Check Value Balance From Address Bitcoin Wallet:
+for checking balance per address bitcoin wallet with any type format can use example :
 
 ```python
-import Blockthon as block
+from Blockthon.Bitcoin import Balance_BTC
 
-# Generated Random Hex (Private key)
-privatekey = block.PrivateKey()
-# Generated Ethereum Address From Private Key (HEX)
-ethereum_Address = block.ETH_From_PrivateKey(privatekey)
-
+address = "bc1qu8dccq3yetd93m4nge0yay53lwgwvxngj8a80s"
+balance = Balance_BTC(address)
+# return value balance to string can / 100000000
 ```
+### Generate and Convert Private Key HEX To Ethereum Address:
 
-#### Check Value Balance Ethereum Address :
-
+example: generate privatekey hex and convert to ethereum address:
 ```python
-import Blockthon as block
+from Blockthon.Wallet import PrivateKey_To_ETH
+import os
 
-address = "0xe36B47dC83228FA6c3a50B07A820d3CdF7fAa700"
-# Check Value Balance Return [str]
-balance = block.Balance_Ethereum(address)
+privatekey = os.urandom(32).hex()
+addressEthereum = PrivateKey_To_ETH(privatekey)
 ```
-
----
-
-### Generated Tron Address From Private Key (HEX):
-
-generated Tron address wallet from private key (hex) , in this example first generated private key random , after that generated address from private key with `block.TRX_From_PrivateKey(privatekey)`, first needed import `import Blockthon as block` .
-
+check value balance Ethereum from address:
 ```python
-import Blockthon as block
+from Blockhton.Ethereum import Balance_ETH
 
-# Generated Random Hex (Private key)
-privatekey = block.PrivateKey()
-# Generated Tron Address From Private Key (HEX)
-Tron_Address = block.TRX_From_PrivateKey(privatekey)
-```
-#### Check Value Balance Tron Address :
-
-```python
-import Blockthon as block
-
-address = "TDbLEetdDFLJcq19DrKk3yJAHpWfkQ418r"
-# Check Value Balance Return [str]
-balance = block.Balance_Tron(address)
+address = "0x3628c7978C69278fA19A88a5B16718F47f5BEfe8"
+balance = Balance_ETH(address)
 ```
 
----
-
-
-### Generated Dogecoin Address From Private Key (HEX):
-
-generated Dogecoin address wallet from private key (hex) , in this example first generated private key random , after that generated address from private key with `block.DOGE_From_PrivateKey(privatekey)`, first needed import `import Blockthon as block` .
-
-```python
-import Blockthon as block
-
-# Generated Random Hex (Private key)
-privatekey = block.PrivateKey()
-# Generated Dogecoin Address From Private Key (HEX)
-Dogecoin_Address = block.DOGE_From_PrivateKey(privatekey)
-```
-
-#### Check Value Balance Dogecoin Address :
-
-```python
-import Blockthon as block
-
-# Check Value Balance Return [str]
-balance = block.Balance_Dogecoin(Dogecoin_Address)
-```
-
----
-
-### Generated Dash Address From Private Key (HEX):
-
-generated Dash address wallet from private key (hex) , in this example first generated private key random , after that generated address from private key with `block.DASH_From_PrivateKey(privatekey)`, first needed import `import Blockthon as block` .
-
-```python
-import Blockthon as block
-
-# Generated Random Hex (Private key)
-privatekey = block.PrivateKey()
-# Generated Dash Address From Private Key (HEX)
-Dash_Address = block.DASH_From_PrivateKey(privatekey)
-```
-
-#### Check Value Balance Dash Address :
-
-```python
-import Blockthon as block
-
-# Check Value Balance Return [str]
-balance = block.Balance_Dash(Dash_Address)
-```
-
----
-
-
-### Generated Bitcoin Gold Address From Private Key (HEX):
-
-generated Bitcoin Gold address wallet from private key (hex) , in this example first generated private key random , after that generated address from private key with `block.BTG_From_PrivateKey(privatekey)`, first needed import `import Blockthon as block` .
-
-```python
-import Blockthon as block
-
-# Generated Random Hex (Private key)
-privatekey = block.PrivateKey()
-# Generated Bitcoin Gold Address From Private Key (HEX)
-BitcoinGold_Address = block.BTG_From_PrivateKey(privatekey)
-```
-
-#### Check Value Balance BitcoinGold Address :
-
-```python
-import Blockthon as block
-
-# Check Value Balance Return [str]
-balance = block.Balance_BitcoinGold(BitcoinGold_Address)
-```
-
-### Generated Litecoin Address From Private Key (HEX):
-
-generated Litecoin address wallet from private key (hex) , in this example first generated private key random , after that generated address from private key with `block.LTC_From_PrivateKey(privatekey)`, first needed import `import Blockthon as block` .
-
-```python
-import Blockthon as block
-
-# Generated Random Hex (Private key)
-privatekey = block.PrivateKey()
-# Generated Litecoin Address From Private Key (HEX)
-Litecoin_Address = block.LTC_From_PrivateKey(privatekey)
-```
-
-#### Check Value Balance Litecoin Address :
-
-```python
-import Blockthon as block
-
-# Check Value Balance Return [str]
-balance = block.Balance_Litecoin(Litecoin_Address)
-```
-
----
-
-### Generated Ravencoin Address From Private Key (HEX):
-
-generated Ravencoin address wallet from private key (hex) , in this example first generated private key random , after that generated address from private key with `block.RVN_From_PrivateKey(privatekey)`, first needed import `import Blockthon as block` .
-
-```python
-import Blockthon as block
-
-# Generated Random Hex (Private key)
-privatekey = block.PrivateKey()
-# Generated Ravencoin Address From Private Key (HEX)
-Ravencoin_Address = block.RVN_From_PrivateKey(privatekey)
-```
-
-#### Check Value Balance Ravencoin Address :
-
-```python
-import Blockthon as block
-
-# Check Value Balance Return [str]
-balance = block.Balance_Ravencoin(Ravencoin_Address)
-```
-
----
-
-
-### Generated DigiByte Address From Private Key (HEX):
-
-generated DigiByte address wallet from private key (hex) , in this example first generated private key random , after that generated address from private key with `block.DigiByte_From_PrivateKey(privatekey)`, first needed import `import Blockthon as block` .
-
-```python
-import Blockthon as block
-
-# Generated Random Hex (Private key)
-privatekey = block.PrivateKey()
-# Generated DigiByte Address From Private Key (HEX)
-DigiByte_Address = block.DigiByte_From_PrivateKey(privatekey)
-```
-
-#### Check Value Balance DigiByte Address :
-
-```python
-import Blockthon as block
-
-# Check Value Balance Return [str]
-balance = block.Balance_DigiByte(DigiByte_Address)
-```
-
----
-
-
-### Generated VIA Address From Private Key (HEX):
-
-generated VIA address wallet from private key (hex) , in this example first generated private key random , after that generated address from private key with `block.VIA_From_PrivateKey(privatekey)`, first needed import `import Blockthon as block` .
-
-```python
-import Blockthon as block
-
-# Generated Random Hex (Private key)
-privatekey = block.PrivateKey()
-# Generated VIA Address From Private Key (HEX)
-VIA_Address = block.VIA_From_PrivateKey(privatekey)
-```
-
----
-
-### Generated QTUM Address From Private Key (HEX):
-
-generated QTUM address wallet from private key (hex) , in this example first generated private key random , after that generated address from private key with `block.QTUM_From_PrivateKey(privatekey)`, first needed import `import Blockthon as block` .
-
-```python
-import Blockthon as block
-
-# Generated Random Hex (Private key)
-privatekey = block.PrivateKey()
-# Generated QTUM Address From Private Key (HEX)
-QTUM_Address = block.QTUM_From_PrivateKey(privatekey)
-```
-#### Check Value Balance Qtum Address :
-
-```python
-import Blockthon as block
-
-# Check Value Balance Return [str]
-balance = block.Balance_Qtum(Qtum_Address)
-```
----
-
-
-### Generated ZCASH Address From Private Key (HEX):
-
-generated ZCASH address wallet from private key (hex) , in this example first generated private key random , after that generated address from private key with `block.ZEC_From_PrivateKey(privatekey)`, first needed import `import Blockthon as block` .
-
-```python
-import Blockthon as block
-
-# Generated Random Hex (Private key)
-privatekey = block.PrivateKey()
-# Generated ZEC Address From Private Key (HEX)
-ZEC_Address = block.ZEC_From_PrivateKey(privatekey)
-```
-#### Check Value Balance zCash Address :
-
-```python
-import Blockthon as block
-
-# Check Value Balance Return [str]
-balance = block.Balance_zCash(zCash_Address)
-```
+>>>>>>> 3eaf940a85bfc73a88c52240b71bedecf16b6017
